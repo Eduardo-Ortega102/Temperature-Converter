@@ -2,7 +2,9 @@
 
 ### What is this repository for? ###
 
-This repository is a kata of fluent API and TDD. The aim of the software is converting temperature from one scale to another. The scales that will be available are: Celsius, Fahrenheit and Kelvin.
+This repository is a kata of fluent API and TDD using Java SE 8.
+
+The aim of the software is converting temperature from one scale to another. The scales that will be available are: Celsius, Fahrenheit and Kelvin.
 
 ### Class diagram ###
 
