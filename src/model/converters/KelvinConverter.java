@@ -4,7 +4,7 @@ import model.Converter;
 import model.Degree;
 import model.ScaleException;
 
-import static model.Scale.*;
+import static model.Scale.KELVIN;
 
 public class KelvinConverter implements Converter {
 
@@ -26,7 +26,7 @@ public class KelvinConverter implements Converter {
     @Override
     public Degree toFahrenheit() {
         try {
-            return Degree.ofScale(FAHRENHEIT).andTemperature(degree.temperature() * (9 / 5) - 459.67);
+            return Degree.fahrenheit(degree.temperature() * (9 / 5) - 459.67);
         } catch (ScaleException e) {
             throw new RuntimeException("This never happen");
         }
@@ -35,7 +35,7 @@ public class KelvinConverter implements Converter {
     @Override
     public Degree toCelsius() {
         try {
-            return Degree.ofScale(CELSIUS).andTemperature(degree.temperature() - 273.15);
+            return Degree.celsius(degree.temperature() - 273.15);
         } catch (ScaleException e) {
             throw new RuntimeException("This never happen");
         }

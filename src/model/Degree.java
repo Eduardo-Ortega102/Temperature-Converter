@@ -1,21 +1,23 @@
 package model;
 
-public class Degree {
+import java.text.DecimalFormat;
 
+import static java.lang.Double.parseDouble;
+import static model.Scale.*;
+
+public class Degree {
     private final Scale scale;
     private final double temperature;
 
-    private Degree(Scale scale, double temperature) {
+    private Degree(Scale scale, double temperature) throws ScaleException {
+        if (temperature < scale.absoluteZero())
+            throw ScaleException.temperature(temperature).isLowerThanAbsoluteZeroInScale(scale);
         this.scale = scale;
-        this.temperature = temperature;
+        this.temperature = trimToTwoDecimals(temperature);
     }
 
-    public static TemperatureChecker ofScale(Scale scale) {
-        return temperature -> {
-            if (temperature < scale.absoluteZero())
-                throw ScaleException.temperature(temperature).isLowerThanAbsoluteZeroInScale(scale);
-            return new Degree(scale, temperature);
-        };
+    private double trimToTwoDecimals(double temperature) {
+        return parseDouble(new DecimalFormat(".##").format((temperature)).replace(",","."));
     }
 
     public Scale scale() {
@@ -26,9 +28,22 @@ public class Degree {
         return temperature;
     }
 
-
-    @FunctionalInterface
-    public interface TemperatureChecker {
-        Degree andTemperature(double temperature) throws ScaleException;
+    @Override
+    public boolean equals(Object obj) {
+        Degree degree = (Degree) obj;
+        return temperature == degree.temperature && scale == degree.scale;
     }
+
+    public static Degree celsius(double temperature) throws ScaleException {
+        return new Degree(CELSIUS, temperature);
+    }
+
+    public static Degree kelvin(double temperature) throws ScaleException {
+        return new Degree(KELVIN, temperature);
+    }
+
+    public static Degree fahrenheit(double temperature) throws ScaleException {
+        return new Degree(FAHRENHEIT, temperature);
+    }
+
 }
