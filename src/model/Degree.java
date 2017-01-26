@@ -34,6 +34,11 @@ public class Degree {
         return temperature == degree.temperature && scale == degree.scale;
     }
 
+    @Override
+    public String toString() {
+        return temperature + " " + scale;
+    }
+
     public static Degree celsius(double temperature) throws ScaleException {
         return new Degree(CELSIUS, temperature);
     }
