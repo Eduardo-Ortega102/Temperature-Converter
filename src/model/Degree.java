@@ -10,8 +10,7 @@ public class Degree {
     private final double temperature;
 
     private Degree(Scale scale, double temperature) throws ScaleException {
-        if (temperature < scale.absoluteZero())
-            throw ScaleException.temperature(temperature).isLowerThanAbsoluteZeroInScale(scale);
+        if (temperature < scale.absoluteZero()) throw new ScaleException(scale, temperature);
         this.scale = scale;
         this.temperature = trimToTwoDecimals(temperature);
     }

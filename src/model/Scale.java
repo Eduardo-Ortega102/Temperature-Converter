@@ -4,7 +4,7 @@ public enum Scale {
     CELSIUS {
         @Override
         public double absoluteZero() {
-            return -273.15d;
+            return -273.15;
         }
     },
     KELVIN {
